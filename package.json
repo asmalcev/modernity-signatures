@@ -1,0 +1,22 @@
+{
+  "name": "modernity-signatures",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asmalcev/modernity-signatures.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asmalcev/modernity-signatures/issues"
+  },
+  "homepage": "https://github.com/asmalcev/modernity-signatures#readme",
+  "dependencies": {
+    "@babel/parser": "^7.24.0"
+  }
+}

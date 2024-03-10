@@ -1,0 +1,3 @@
+class ClassWithStatic {
+    static staticField;
+}

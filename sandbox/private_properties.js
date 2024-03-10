@@ -1,0 +1,3 @@
+class ClassWithPrivate {
+    #privateField;
+}
