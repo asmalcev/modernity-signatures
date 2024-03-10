@@ -16,8 +16,11 @@
 | `async/await` | `(type FunctionDeclaration).async` |
 | `private properties` | `(type ClassDeclaration).body(type ClassBody).body.(type ClassPrivateProperty)` |
 | `static properties` | `(type ClassDeclaration).body(type ClassBody).body.(type ClassProperty).static` |
-| `` | `` |
-| `` | `` |
-| `` | `` |
-| `` | `` |
-| `` | `` |
+| `for` | `(type ForStatement)` |
+| `for in` | `(type ForInStatement)` |
+| `for of` | `(type ForOfStatement)` |
+| ... | ... |
+
+## ??
+
+<https://codereview.stackexchange.com/questions/147892/small-javascript-library-for-ecmascript-version-detection>
