@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/asmalcev/modernity-signatures#readme",
   "dependencies": {
-    "@babel/parser": "^7.24.0"
+    "@babel/parser": "^7.24.0",
+    "esbuild": "^0.20.1",
+    "rollup": "^4.12.1"
   }
 }

@@ -1,5 +1,5 @@
-const babel = require('@babel/parser');
-const fs = require('node:fs');
+import { babel } from '@babel/parser';
+import fs from 'node:fs';
 
 const data = fs.readFileSync('sandbox/sample1.js', {
     encoding: 'utf-8',
