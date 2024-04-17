@@ -1,24 +1,26 @@
 {
-  "name": "modernity-signatures",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/asmalcev/modernity-signatures.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/asmalcev/modernity-signatures/issues"
-  },
-  "homepage": "https://github.com/asmalcev/modernity-signatures#readme",
-  "dependencies": {
-    "@babel/parser": "^7.24.0",
-    "esbuild": "^0.20.1",
-    "rollup": "^4.12.1"
-  }
+    "name": "modernity-signatures",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "generate-template": "bun src/generateCompatTemplate.js > compatMapping.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/asmalcev/modernity-signatures.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/asmalcev/modernity-signatures/issues"
+    },
+    "homepage": "https://github.com/asmalcev/modernity-signatures#readme",
+    "dependencies": {
+        "@babel/parser": "^7.24.4",
+        "@mdn/browser-compat-data": "^5.5.22",
+        "esbuild": "^0.20.1",
+        "flat": "^6.0.1",
+        "rollup": "^4.12.1"
+    }
 }

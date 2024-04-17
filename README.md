@@ -1,6 +1,6 @@
 # modernity-signatures
 
-## Факторы, по которым можно судить о современности кода
+## Факторы, по которым можно судить о версии исходного кода
 
 - Объявление переменных: `var, let, const`
 - Standard built-in objects: `Promise, BigInt, ...`
@@ -25,3 +25,14 @@
 
 <https://codereview.stackexchange.com/questions/147892/small-javascript-library-for-ecmascript-version-detection>
 <https://gist.github.com/bgoonz/9816ce9ac7ddad2ae0cbd7f192f17bf1>
+<https://docs.w3cub.com/javascript>
+<https://github.com/mdn/browser-compat-data/tree/main>
+
+## Алгоритм
+
+1. Обходим AST дерево
+2. Определяем текущий элемент
+3. Смотрим информацию в compat data
+4. Если есть вложенные, то для каждого из них запускаем шаг [2]
+5. Переходим к следующему элементу и запускаем для него шаг [2] или завершаем, если следующего нет
+
