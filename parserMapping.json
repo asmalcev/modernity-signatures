@@ -1,0 +1,24 @@
+{
+    "VariableDeclaration": [
+        {
+            "kind": "var",
+            "__type": "VarVariableDeclaration"
+        },
+        {
+            "kind": "let",
+            "__type": "LetVariableDeclaration"
+        },
+        {
+            "kind": "const",
+            "__type": "ConstVariableDeclaration"
+        }
+    ],
+    "ForStatement": "ForStatement",
+    "ForOfStatement": [
+        {
+            "await": true,
+            "__type": "ForAwaitOfStatement"
+        }
+    ],
+    "ForInStatement": "ForInStatement"
+}
