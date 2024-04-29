@@ -28,18 +28,10 @@ for (let i = 0; i < 10; i++) {}
 ```json
 {
     "type": "ForStatement",
-    "init": {
-        // ...
-    },
-    "test": {
-        // ...
-    },
-    "update": {
-        // ...
-    },
-    "body": {
-        // ...
-    }
+    "init": {},
+    "test": {},
+    "update": {},
+    "body": {}
 }
 ```
 
@@ -54,9 +46,7 @@ let a = 1;
 ```json
 {
     "type": "VariableDeclaration",
-    "declarations": [
-        // ...
-    ],
+    "declarations": [],
     "kind": "let"
 }
 ```
