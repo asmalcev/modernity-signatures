@@ -1,38 +1,126 @@
-# modernity-signatures
+# Описание исследования и алгоритма анализа
 
-## Факторы, по которым можно судить о версии исходного кода
+## 1 Инструмент для построения AST
 
-- Объявление переменных: `var, let, const`
-- Standard built-in objects: `Promise, BigInt, ...`
-- Методы объектов: например, у массива `map, filter, reduce, ...`
-- Синтаксис: `private properties, async/await, generator, for in, for of, template literals, arrow function expressions`
+`@babel/parser`
 
-## Как найти факторы в дереве babel/parser
+## 2 Базы данных поддержки функциональности JavaScript в браузерах и рантаймах
 
-| Фактор               | Как найти                                                                       |
-| -------------------- | ------------------------------------------------------------------------------- |
-| `var, let, const`    | `(type VariableDeclaration).kind`                                               |
-| `generator`          | `(type FunctionDeclaration).generator`                                          |
-| `async/await`        | `(type FunctionDeclaration).async`                                              |
-| `private properties` | `(type ClassDeclaration).body(type ClassBody).body.(type ClassPrivateProperty)` |
-| `static properties`  | `(type ClassDeclaration).body(type ClassBody).body.(type ClassProperty).static` |
-| `for`                | `(type ForStatement)`                                                           |
-| `for in`             | `(type ForInStatement)`                                                         |
-| `for of`             | `(type ForOfStatement)`                                                         |
-| ...                  | ...                                                                             |
+- [@mdn/browser-compat-data](https://github.com/mdn/browser-compat-data)
+- [@unjs/runtime-compat](https://github.com/unjs/runtime-compat)
 
-## ??
+## 3 Подготовка структур маппинга
 
-<https://codereview.stackexchange.com/questions/147892/small-javascript-library-for-ecmascript-version-detection>
-<https://gist.github.com/bgoonz/9816ce9ac7ddad2ae0cbd7f192f17bf1>
-<https://docs.w3cub.com/javascript>
-<https://github.com/mdn/browser-compat-data/tree/main>
+Для того, чтобы определить в каких версиях браузеров код будет работать и какие функции будут недоступны в соответствии с выбранными целевыми версиями, необходимо уметь находить элементы AST в базах данных. Для этого можно построить структуру маппинга нод дерева на записи в БД.
 
-## Алгоритм
+Каждая нода AST представляет из себя объект с полем `type`, а также фиксированным набором полей в зависимости от ее типа.
 
-1. Обходим AST дерево
-2. Определяем текущий элемент
-3. Смотрим информацию в compat data
-4. Если есть вложенные, то для каждого из них запускаем шаг [2]
-5. Переходим к следующему элементу и запускаем для него шаг [2] или завершаем, если следующего нет
+### 3.1 Рассмотрим несколько примеров
 
+Во всех примерах такие поля, как `start`, `end`, `loc` и др. скрыты для представления только необходимой информации.
+
+#### 3.1.1 Пример 1
+
+```js
+for (let i = 0; i < 10; i++) {}
+```
+
+```json
+{
+    "type": "ForStatement",
+    "init": { ... },
+    "test": { ... },
+    "update": { ... },
+    "body": { ... }
+}
+```
+
+Эту ноду однозначно можно определить как цикл `for`, т.к. тип `ForStatement` не имеет альтернатив, т.к. `for of` и `for in` имеют другие типы — `ForOfStatement` и `ForInStatement`.
+
+#### 3.1.2 Пример 2
+
+```js
+let a = 1;
+```
+
+```json
+{
+    "type": "VariableDeclaration",
+    "declarations": [ ... ],
+    "kind": "let"
+}
+```
+
+В этом случае не получится однозначно определить, какая конструкция встретилась, только по типу. Необходимо посмотреть в поле `kind` — там могут быть значения `var | let | const`.
+
+#### 3.1.3 Пример 3
+
+```js
+Array.from()
+```
+
+```json
+{
+    "type": "ExpressionStatement",
+    "expression": {
+        "type": "CallExpression",
+        "callee": {
+            "type": "MemberExpression",
+            "object": {
+                "type": "Identifier",
+                "name": "Array"
+            },
+            "computed": false,
+            "property": {
+                "type": "Identifier",
+                "name": "from"
+            }
+        },
+        "arguments": []
+    }
+}
+```
+
+Чтобы определить, что вызываемая функция `from` является методом массива, необходимо подняться к его родителю по дереву и посмотреть информацию об объекте, на котором происходит вызов.
+
+### 3.2 Описание структуры маппинга
+
+Как видно из примеров, на данный момент не получится однозначно определять используемые возможности языка, опираясь только на типы нод AST. Поэтому нужно объявить их внутреннее представление — идентификаторы. Тогда `VariableDeclaration` будет иметь 3 варианта: `VarVariableDeclaration`, `LetVariableDeclaration` и `ConstVariableDeclaration`.
+
+Чтобы определить, какой идентификатор соответствует рассматриваемой ноде, лучше всего использовать подход **pattern matching** — заключается это в том, что будем использовать декларативное описание шаблона, а затем проверять все ноды на соответствие описанным шаблонам.
+
+- [Подробнее про формат описания шаблонов](/ParserMappingFormat.md) [WIP]
+- [Описанные шаблоны хранятся в parserMapping.json](/parserMapping.json) [WIP]
+
+Далее необходимо связать найденный идентификатор с информацией из базы данных поддержки в браузерах и рантаймах. Для этого будет использоваться еще одна структура:
+
+```json
+{
+    "InternalKey": "path.to.data",
+    ...
+}
+```
+
+Ключами такого объекта будут внутренние идентификаторы, а значениями пути по объектам баз данных. Так, например, чтобы найти информацию про цикл `for` необходимо из корня БД перейти в раздел `javascript`, затем `statements` и далее `for`. Задачей этого исследования является анализ только JavaScript кода, поэтому будем считать, что корнем является объект `javascript`. Итого, путь будет выглядеть как `statements.for`. А все вместе `"ForStatement": "statements.for"`. Именно такая структура описана в файле [compatMapping.json](/compatMapping.json) [WIP].
+
+
+## 4 Алгоритм анализа
+
+### Шаг 1. С помощью @babel/parser строим AST программы
+
+```js
+import babel from '@babel/parser';
+import fs from 'node:fs';
+
+const data = fs.readFileSync('path/to/file.js', {
+    encoding: 'utf-8',
+});
+
+const AST = babel.parse(data, {
+    sourceType: 'module',
+});
+```
+
+### Шаг 2. Обходим AST, определяя использование каких классов, методов и API мы встретили
+
+WIP
