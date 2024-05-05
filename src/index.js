@@ -1,7 +1,9 @@
 import babel from '@babel/parser';
 import fs from 'node:fs';
 
-const data = fs.readFileSync('sandbox/for_of.js', {
+import { matchNode } from './patternMatching';
+
+const data = fs.readFileSync('sandbox/generator.js', {
     encoding: 'utf-8',
 });
 
@@ -9,4 +11,33 @@ const parsed = babel.parse(data, {
     sourceType: 'module',
 });
 
-console.log(parsed.program);
+const keysToLookup = new Set([
+    'init',
+    'declarations',
+    'body',
+    'test',
+    'update',
+    'left',
+    'right',
+    'expression',
+    'argument'
+]);
+
+const scan = (node) => {
+    if (Array.isArray(node)) {
+        for (const subnode of node) {
+            scan(subnode);
+        }
+    } else if (typeof node === 'object') {
+        const matched = matchNode(node);
+        console.info(node.type, '->', matched);
+
+        for (const key in node) {
+            if (keysToLookup.has(key)) {
+                scan(node[key]);
+            }
+        }
+    }
+};
+
+scan(parsed.program.body);

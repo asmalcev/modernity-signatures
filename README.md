@@ -97,7 +97,6 @@ Array.from()
 ```json
 {
     "InternalKey": "path.to.data",
-    ...
 }
 ```
 

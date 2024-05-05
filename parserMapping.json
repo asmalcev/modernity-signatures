@@ -18,7 +18,56 @@
         {
             "await": true,
             "__type": "ForAwaitOfStatement"
+        },
+        {
+            "await": false,
+            "__type": "ForOfStatement"
         }
     ],
-    "ForInStatement": "ForInStatement"
+    "ForInStatement": "ForInStatement",
+    "FunctionDeclaration": [
+        {
+            "generator": false,
+            "async": false,
+            "__type": "FunctionDeclaration"
+        },
+        {
+            "generator": true,
+            "async": false,
+            "__type": "GeneratorFunctionDeclaration"
+        },
+        {
+            "generator": false,
+            "async": true,
+            "__type": "AsyncFunctionDeclaration"
+        },
+        {
+            "generator": true,
+            "async": true,
+            "__type": "AsyncGeneratorFunctionDeclaration"
+        }
+    ],
+    "YieldExpression": "YieldExpression",
+    "ArrowFunctionExpression": [
+        {
+            "generator": false,
+            "async": false,
+            "__type": "ArrowFunctionExpression"
+        },
+        {
+            "generator": true,
+            "async": false,
+            "__type": "GeneratorArrowFunctionExpression"
+        },
+        {
+            "generator": false,
+            "async": true,
+            "__type": "AsyncArrowFunctionExpression"
+        },
+        {
+            "generator": true,
+            "async": true,
+            "__type": "AsyncGeneratorArrowFunctionExpression"
+        }
+    ]
 }
