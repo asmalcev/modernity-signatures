@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "generate-template": "bun src/generateCompatTemplate.js > compatMapping.json"
+        "generate-template": "bun src/generateCompatTemplate.js > compatMapping.json",
+        "test": "vitest"
     },
     "repository": {
         "type": "git",
@@ -22,5 +23,8 @@
         "esbuild": "^0.20.1",
         "flat": "^6.0.1",
         "rollup": "^4.12.1"
+    },
+    "devDependencies": {
+        "vitest": "^1.6.0"
     }
 }

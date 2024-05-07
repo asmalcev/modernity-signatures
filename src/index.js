@@ -20,7 +20,21 @@ const keysToLookup = new Set([
     'left',
     'right',
     'expression',
-    'argument'
+    'expressions',
+    'argument',
+    'arguments',
+    'elements',
+    'object',
+    'property',
+    'properties',
+    'params',
+    'callee',
+    'consequent',
+    'alternate',
+    'discriminant',
+    'cases',
+    'value',
+    'key',
 ]);
 
 const scan = (node) => {

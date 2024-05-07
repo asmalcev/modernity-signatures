@@ -47,7 +47,16 @@
             "__type": "AsyncGeneratorFunctionDeclaration"
         }
     ],
-    "YieldExpression": "YieldExpression",
+    "YieldExpression": [
+        {
+            "delegate": false,
+            "__type": "YieldExpression"
+        },
+        {
+            "delegate": true,
+            "__type": "YieldStarExpression"
+        }
+    ],
     "ArrowFunctionExpression": [
         {
             "generator": false,
@@ -68,6 +77,152 @@
             "generator": true,
             "async": true,
             "__type": "AsyncGeneratorArrowFunctionExpression"
+        }
+    ],
+    "ClassDeclaration": "ClassDeclaration",
+    "ClassProperty": [
+        {
+            "static": true,
+            "__type": "StaticClassProperty"
+        },
+        {
+            "static": false,
+            "__type": "ClassProperty"
+        }
+    ],
+    "ClassPrivateProperty": [
+        {
+            "static": true,
+            "__type": "StaticClassPrivateProperty"
+        },
+        {
+            "static": false,
+            "__type": "ClassPrivateProperty"
+        }
+    ],
+    "AwaitExpression": "AwaitExpression",
+    "NewExpression": "NewExpression",
+    "BigIntLiteral": "BigIntLiteral",
+    "LabeledStatement": "LabeledStatement",
+    "IfStatement": "IfStatement",
+    "DebuggerStatement": "DebuggerStatement",
+    "BlockStatement": "BlockStatement",
+    "ContinueStatement": "ContinueStatement",
+    "BreakStatement": "BreakStatement",
+    "DoWhileStatement": "DoWhileStatement",
+    "ReturnStatement": "ReturnStatement",
+    "SwitchStatement": "SwitchStatement",
+    "ThrowStatement": "ThrowStatement",
+    "WhileStatement": "WhileStatement",
+    "WithStatement": "WithStatement",
+    "RegExpLiteral": "RegExpLiteral",
+    "BinaryExpression": [
+        {
+            "operator": "+",
+            "__type": "AdditionBinaryExpression"
+        },
+        {
+            "operator": "-",
+            "__type": "SubtractionBinaryExpression"
+        },
+        {
+            "operator": "&",
+            "__type": "BitwiseAndBinaryExpression"
+        },
+        {
+            "operator": "~",
+            "__type": "BitwiseNotBinaryExpression"
+        },
+        {
+            "operator": "|",
+            "__type": "BitwiseOrBinaryExpression"
+        },
+        {
+            "operator": "^",
+            "__type": "BitwiseXorBinaryExpression"
+        },
+        {
+            "operator": "/",
+            "__type": "DivisionBinaryExpression"
+        },
+        {
+            "operator": "*",
+            "__type": "MultiplicationBinaryExpression"
+        }
+    ],
+    "AssignmentExpression": [
+        {
+            "operator": "+=",
+            "__type": "AdditionAssignmentExpression"
+        },
+        {
+            "operator": "-=",
+            "__type": "SubtractionAssignmentExpression"
+        },
+        {
+            "operator": "=",
+            "__type": "AssignmentExpression"
+        },
+        {
+            "operator": "&=",
+            "__type": "BitwiseAndAssignmentExpression"
+        },
+        {
+            "operator": "|=",
+            "__type": "BitwiseOrAssignmentExpression"
+        },
+        {
+            "operator": "^=",
+            "__type": "BitwiseXorAssignmentExpression"
+        },
+        {
+            "operator": "/=",
+            "__type": "DivisionAssignmentExpression"
+        },
+        {
+            "operator": "*=",
+            "__type": "MultiplicationAssignmentExpression"
+        }
+    ],
+    "FunctionExpression": [
+        {
+            "generator": false,
+            "async": false,
+            "__type": "FunctionExpression"
+        },
+        {
+            "generator": true,
+            "async": false,
+            "__type": "GeneratorFunctionExpression"
+        },
+        {
+            "generator": false,
+            "async": true,
+            "__type": "AsyncFunctionExpression"
+        },
+        {
+            "generator": true,
+            "async": true,
+            "__type": "AsyncGeneratorFunctionExpression"
+        }
+    ],
+    "ClassExpression": "ClassExpression",
+    "SequenceExpression": "SequenceExpression",
+    "ConditionalExpression": "ConditionalExpression",
+    "UpdateExpression": [
+        {
+            "operator": "++",
+            "__type": "IncrementUpdateExpression"
+        },
+        {
+            "operator": "--",
+            "__type": "DecrementUpdateExpression"
+        }
+    ],
+    "UnaryExpression": [
+        {
+            "operator": "delete",
+            "__type": "DeleteUnaryExpression"
         }
     ]
 }
