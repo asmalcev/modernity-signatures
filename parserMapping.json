@@ -148,6 +148,78 @@
         {
             "operator": "*",
             "__type": "MultiplicationBinaryExpression"
+        },
+        {
+            "operator": "==",
+            "__type": "EqualityBinaryExpression"
+        },
+        {
+            "operator": "===",
+            "__type": "StrictEqualityBinaryExpression"
+        },
+        {
+            "operator": "!=",
+            "__type": "InequalityBinaryExpression"
+        },
+        {
+            "operator": "!==",
+            "__type": "StrictInequalityBinaryExpression"
+        },
+        {
+            "operator": "**",
+            "__type": "ExponentiationBinaryExpression"
+        },
+        {
+            "operator": ">",
+            "__type": "GreaterThanBinaryExpression"
+        },
+        {
+            "operator": ">=",
+            "__type": "GreaterThanOrEqualBinaryExpression"
+        },
+        {
+            "operator": "<",
+            "__type": "LessThanBinaryExpression"
+        },
+        {
+            "operator": "<=",
+            "__type": "LessThanOrEqualBinaryExpression"
+        },
+        {
+            "operator": "in",
+            "__type": "InBinaryExpression"
+        },
+        {
+            "operator": "instanceof",
+            "__type": "InstanceofBinaryExpression"
+        },
+        {
+            "operator": "<<",
+            "__type": "LeftShiftBinaryExpression"
+        },
+        {
+            "operator": ">>",
+            "__type": "RightShiftBinaryExpression"
+        },
+        {
+            "operator": "&&",
+            "__type": "LogicalAndBinaryExpression"
+        },
+        {
+            "operator": "||",
+            "__type": "LogicalOrBinaryExpression"
+        },
+        {
+            "operator": "??",
+            "__type": "NullishCoalescingBinaryExpression"
+        },
+        {
+            "operator": ">>>",
+            "__type": "UnsignedRightShiftBinaryExpression"
+        },
+        {
+            "operator": "%",
+            "__type": "RemainderBinaryExpression"
         }
     ],
     "AssignmentExpression": [
@@ -182,6 +254,38 @@
         {
             "operator": "*=",
             "__type": "MultiplicationAssignmentExpression"
+        },
+        {
+            "operator": "**=",
+            "__type": "ExponentiationAssignmentExpression"
+        },
+        {
+            "operator": "<<=",
+            "__type": "LeftShiftAssignmentExpression"
+        },
+        {
+            "operator": ">>=",
+            "__type": "RightShiftAssignmentExpression"
+        },
+        {
+            "operator": "&&=",
+            "__type": "LogicalAndAssignmentExpression"
+        },
+        {
+            "operator": "||=",
+            "__type": "LogicalOrAssignmentExpression"
+        },
+        {
+            "operator": "??=",
+            "__type": "NullishCoalescingAssignmentExpression"
+        },
+        {
+            "operator": ">>>=",
+            "__type": "UnsignedRightShiftAssignmentExpression"
+        },
+        {
+            "operator": "%=",
+            "__type": "RemainderAssignmentExpression"
         }
     ],
     "FunctionExpression": [
@@ -223,6 +327,59 @@
         {
             "operator": "delete",
             "__type": "DeleteUnaryExpression"
+        },
+        {
+            "operator": "!",
+            "__type": "LogicalNotUnaryExpression"
+        },
+        {
+            "operator": "+",
+            "__type": "PlusUnaryExpression"
+        },
+        {
+            "operator": "-",
+            "__type": "NegationUnaryExpression"
+        },
+        {
+            "operator": "typeof",
+            "__type": "TypeofUnaryExpression"
+        },
+        {
+            "operator": "void",
+            "__type": "VoidUnaryExpression"
         }
-    ]
+    ],
+    "NullLiteral": "NullLiteral",
+    "OptionalMemberExpression": "OptionalMemberExpression",
+    "Super": "Super",
+    "ThisExpression": "ThisExpression",
+    "MemberExpression": "MemberExpression",
+    "SpreadElement": [
+        {
+            "__parent": "CallExpression",
+            "__type": "CallSpreadElement"
+        },
+        {
+            "__parent": "ArrayExpression",
+            "__type": "ArraySpreadElement"
+        },
+        {
+            "__parent": "ObjectExpression",
+            "__type": "ObjectSpreadElement"
+        }
+    ],
+    "EmptyStatement": "EmptyStatement",
+    "TryStatement": [
+        {
+            "handler": {
+                "__negative": true,
+                "type": "CatchClause"
+            },
+            "__type": "OptionalCatchBindingTryStatement"
+        },
+        {
+            "__type": "TryStatement"
+        }
+    ],
+    "MetaProperty": "NewTargetMetaProperty"
 }

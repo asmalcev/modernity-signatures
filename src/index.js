@@ -35,6 +35,7 @@ const keysToLookup = new Set([
     'cases',
     'value',
     'key',
+    'handler',
 ]);
 
 const scan = (node) => {
