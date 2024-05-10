@@ -4,7 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "generate-template": "bun src/generateCompatTemplate.js > compatMapping.json",
+        "generate-template": "bun helpers/generateCompatTemplate.js > compatMapping_new.json",
+        "migrate-template": "bun helpers/migrateCompatTemplates.js > compatMapping_migrated.json",
+        "clean-up-tmp-template": "mv compatMapping_migrated.json compatMapping.json && rm compatMapping_new.json",
+        "update-template": "npm run generate-template && npm run migrate-template && npm run clean-up-tmp-template",
         "test": "vitest"
     },
     "repository": {
