@@ -100,7 +100,18 @@
             "__type": "ClassPrivateProperty"
         }
     ],
-    "AwaitExpression": "AwaitExpression",
+    "AwaitExpression": [
+        {
+            "__any_parent": [
+                "ArrowFunctionExpression",
+                "FunctionExpression"
+            ],
+            "__type": "AwaitExpression"
+        },
+        {
+            "__type": "TopLevelAwaitExpression"
+        }
+    ],
     "NewExpression": "NewExpression",
     "BigIntLiteral": "BigIntLiteral",
     "LabeledStatement": "LabeledStatement",

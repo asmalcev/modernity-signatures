@@ -3,7 +3,7 @@ import fs from 'node:fs';
 
 import { matchNode } from './patternMatching';
 
-const data = fs.readFileSync('sandbox/generator.js', {
+const data = fs.readFileSync('sandbox/awaits.js', {
     encoding: 'utf-8',
 });
 
@@ -38,18 +38,18 @@ const keysToLookup = new Set([
     'handler',
 ]);
 
-const scan = (node) => {
+const scan = (node, stack = []) => {
     if (Array.isArray(node)) {
         for (const subnode of node) {
-            scan(subnode);
+            scan(subnode, [...stack, node]);
         }
     } else if (typeof node === 'object') {
-        const matched = matchNode(node);
+        const matched = matchNode(node, stack);
         console.info(node.type, '->', matched);
 
         for (const key in node) {
             if (keysToLookup.has(key)) {
-                scan(node[key]);
+                scan(node[key], [...stack, node]);
             }
         }
     }
