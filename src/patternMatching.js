@@ -4,30 +4,32 @@ export const matchPattern = (node, _pattern) => {
     const { __negative, ...pattern } = _pattern;
 
     if (!node) {
-        // console.info('no node to check');
         return __negative;
     }
-
-    // console.info(node, __negative, pattern);
 
     for (const key in pattern) {
         let isMatched = true;
 
         if (Array.isArray(pattern[key])) {
-            // console.info('check', key, 'array');
+            for (const variant of pattern[key]) {
+                // at least one of variants has matched
+                isMatched ||= matchPattern(node[key], variant[key]);
+            }
         } else if (typeof pattern[key] === 'string') {
-            // console.info('check', key, 'string');
+            // strict equality of string properties
             isMatched = pattern[key] === node[key];
         } else {
-            // console.info('check', key, 'object');
+            // node matches pattern
             isMatched = matchPattern(node[key], pattern[key]);
         }
 
-        if (!isMatched && !__negative) {
-            // console.log('fast end', __negative);
+        if (isMatched === __negative) {
+            // if did not match and positive check -> fast return
+            // if matched and negative check -> fast return
             return __negative;
         }
     }
+
     return !__negative;
 };
 
@@ -41,7 +43,7 @@ export const matchNode = (node) => {
     if (!Array.isArray(mapped)) return null;
 
     for (const variant of mapped) {
-        const { __type, __parent, ...pattern } = variant;
+        const { __type, ...pattern } = variant;
 
         const isMatched = matchPattern(node, pattern);
         if (isMatched) return __type;

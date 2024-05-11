@@ -16,7 +16,11 @@ describe('Match Node Tests', () => {
         expect(matchNode({ type: 'VariableDeclaration' })).toBe(null);
     });
 
-    test('Node as one of properties of template', () => {
+    test('Return null if node does not maps to any pattern', () => {
+        expect(matchNode({ type: 'ThisTypeDoesntExist' })).toBe(null);
+    });
+
+    test('Node as one of properties of pattern', () => {
         expect(
             matchNode({
                 type: 'TryStatement',
@@ -25,11 +29,21 @@ describe('Match Node Tests', () => {
         ).toBe('OptionalCatchBindingTryStatement');
     });
 
-    test('Node as one of properties of template', () => {
+    test('Node as one of properties of pattern #2', () => {
         expect(
             matchNode({
                 type: 'TryStatement',
                 handler: { type: 'CatchClause' },
+            })
+        ).toBe('TryStatement');
+    });
+
+    test('Node as one of properties of pattern #3', () => {
+        expect(
+            matchNode({
+                type: 'TryStatement',
+                handler: { type: 'CatchClause' },
+                finalizer: { type: 'BlockStatement' },
             })
         ).toBe('TryStatement');
     });
