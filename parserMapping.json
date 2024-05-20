@@ -392,5 +392,45 @@
             "__type": "TryStatement"
         }
     ],
-    "MetaProperty": "NewTargetMetaProperty"
+    "MetaProperty": "NewTargetMetaProperty",
+    "ObjectExpression": "ObjectExpression",
+    "ObjectProperty": [
+        {
+            "computed": true,
+            "__type": "ComputedObjectProperty"
+        },
+        {
+            "method": true,
+            "shorthand": true,
+            "__type": "ShorthandObjectMethod"
+        },
+        {
+            "method": false,
+            "shorthand": true,
+            "__type": "ShorthandObjectProperty"
+        },
+        {
+            "computed": true,
+            "__parent": "ObjectPattern",
+            "__type": "ComputedObjectPattern"
+        },
+        {
+            "__parent": "ObjectPattern",
+            "__type": "ObjectPattern"
+        }
+    ],
+    "RestElement": [
+        {
+            "__parent": "ObjectPattern",
+            "__type": "RestInObjectElement"
+        },
+        {
+            "__parent": "ArrayPattern",
+            "__type": "RestInArrayElement"
+        }
+    ],
+    "TemplateLiteral": "TemplateLiteral",
+    "TaggedTemplateExpression": "TaggedTemplateExpression",
+    "BooleanLiteral": "BooleanLiteral",
+    "NumericLiteral": "NumericLiteral"
 }

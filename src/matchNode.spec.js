@@ -2,25 +2,25 @@ import { describe, expect, test } from 'vitest';
 import { matchNode } from './patternMatching';
 
 describe('Match Node Tests', () => {
-    test('Return internal type if node maps to string', () => {
+    test(`STRING: Return internal type if node maps to string`, () => {
         expect(matchNode({ type: 'EmptyStatement' })).toBe('EmptyStatement');
     });
 
-    test('Return internal type if node maps to one of the variants', () => {
+    test('VARIANTS: Return internal type if node maps to one of the variants', () => {
         expect(matchNode({ type: 'VariableDeclaration', kind: 'let' })).toBe(
             'LetVariableDeclaration'
         );
     });
 
-    test('Return null if node does not maps to any of the variants', () => {
+    test('VARIANTS: Return null if node does not maps to any of the variants', () => {
         expect(matchNode({ type: 'VariableDeclaration' })).toBe(null);
     });
 
-    test('Return null if node does not maps to any pattern', () => {
+    test('VARIANTS: Return null if node does not maps to any pattern', () => {
         expect(matchNode({ type: 'ThisTypeDoesntExist' })).toBe(null);
     });
 
-    test('Node as one of properties of pattern', () => {
+    test('PROPS AS PATTERNS: Node as one of properties of pattern', () => {
         expect(
             matchNode({
                 type: 'TryStatement',
@@ -29,7 +29,7 @@ describe('Match Node Tests', () => {
         ).toBe('OptionalCatchBindingTryStatement');
     });
 
-    test('Node as one of properties of pattern #2', () => {
+    test('PROPS AS PATTERNS: Node as one of properties of pattern', () => {
         expect(
             matchNode({
                 type: 'TryStatement',
@@ -38,7 +38,7 @@ describe('Match Node Tests', () => {
         ).toBe('TryStatement');
     });
 
-    test('Node as one of properties of pattern #3', () => {
+    test('PROPS AS PATTERNS: Node as one of properties of pattern', () => {
         expect(
             matchNode({
                 type: 'TryStatement',
@@ -46,5 +46,38 @@ describe('Match Node Tests', () => {
                 finalizer: { type: 'BlockStatement' },
             })
         ).toBe('TryStatement');
+    });
+
+    test('PARENT: Detect type based on its parent', () => {
+        expect(
+            matchNode(
+                {
+                    type: 'SpreadElement',
+                },
+                [
+                    {
+                        type: 'ObjectExpression',
+                    },
+                    {
+                        type: 'SpreadElement',
+                    },
+                ]
+            )
+        ).toBe('ObjectSpreadElement');
+    });
+
+    test('ANY PARENT: Detect type based on any of its parents', () => {
+        expect(
+            matchNode(
+                {
+                    type: 'AwaitExpression',
+                },
+                [
+                    {
+                        type: 'AwaitExpression',
+                    },
+                ]
+            )
+        ).toBe('TopLevelAwaitExpression');
     });
 });
