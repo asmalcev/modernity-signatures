@@ -1176,7 +1176,7 @@
     "classes.static_class_fields": "",
     "classes.static_initialization_blocks": "",
     "functions": "",
-    "functions.arguments": "",
+    "functions.arguments": "FunctionArgumentsExpressionStatement",
     "functions.arguments.@@iterator": "",
     "functions.arguments.callee": "",
     "functions.arguments.length": "",

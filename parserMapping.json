@@ -108,9 +108,7 @@
             ],
             "__type": "AwaitExpression"
         },
-        {
-            "__type": "TopLevelAwaitExpression"
-        }
+        "TopLevelAwaitExpression"
     ],
     "NewExpression": "NewExpression",
     "BigIntLiteral": "BigIntLiteral",
@@ -364,7 +362,12 @@
     "OptionalMemberExpression": "OptionalMemberExpression",
     "Super": "Super",
     "ThisExpression": "ThisExpression",
-    "MemberExpression": "MemberExpression",
+    "MemberExpression": [
+        {
+            
+        },
+        "MemberExpression"
+    ],
     "SpreadElement": [
         {
             "__parent": "CallExpression",
@@ -388,9 +391,7 @@
             },
             "__type": "OptionalCatchBindingTryStatement"
         },
-        {
-            "__type": "TryStatement"
-        }
+        "TryStatement"
     ],
     "MetaProperty": "NewTargetMetaProperty",
     "ObjectExpression": "ObjectExpression",
@@ -432,5 +433,19 @@
     "TemplateLiteral": "TemplateLiteral",
     "TaggedTemplateExpression": "TaggedTemplateExpression",
     "BooleanLiteral": "BooleanLiteral",
-    "NumericLiteral": "NumericLiteral"
+    "NumericLiteral": "NumericLiteral",
+    "ExpressionStatement": [
+        {
+            "__any_parent": [
+                "FunctionDeclaration",
+                "FunctionExpression",
+                "ArrowFunctionExpression"
+            ],
+            "expression": {
+                "type": "Identifier",
+                "name": "arguments"
+            },
+            "__type": "FunctionArgumentsExpressionStatement"
+        }
+    ]
 }
