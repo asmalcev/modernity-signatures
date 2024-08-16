@@ -8,7 +8,8 @@
         "migrate-template": "bun helpers/migrateCompatTemplates.js > compatMapping_migrated.json",
         "clean-up-tmp-template": "mv compatMapping_migrated.json compatMapping.json && rm compatMapping_new.json",
         "update-template": "npm run generate-template && npm run migrate-template && npm run clean-up-tmp-template",
-        "test": "vitest"
+        "test": "vitest",
+        "start": "bun src/index.js"
     },
     "repository": {
         "type": "git",

@@ -16,7 +16,9 @@ describe('Internal types must be unique', () => {
             addIfNotExists(parserMappings[type]);
         } else if (Array.isArray(parserMappings[type])) {
             for (const variant of parserMappings[type]) {
-                addIfNotExists(variant.__type);
+                addIfNotExists(
+                    typeof variant === 'object' ? variant.__type : variant
+                );
             }
         }
     }

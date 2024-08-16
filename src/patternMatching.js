@@ -1,13 +1,14 @@
 import parserMappings from '../parserMapping.json';
+import { log, rlog } from './log';
 
 export const matchPattern = (node, _pattern, stack) => {
     const { __negative, __parent, __any_parent, ...pattern } = _pattern;
 
     if (!node) {
-        return __negative;
+        return Boolean(__negative);
     }
 
-    if (typeof _pattern === 'string') {
+    if (typeof _pattern === 'string' && typeof node.type === 'string') {
         return node.type === _pattern;
     }
 
@@ -29,7 +30,7 @@ export const matchPattern = (node, _pattern, stack) => {
 
         if (!isMatched && !__negative) {
             // if did not match and positive check -> fast return
-            return __negative;
+            return Boolean(__negative);
         }
     }
 
@@ -47,7 +48,7 @@ export const matchPattern = (node, _pattern, stack) => {
 
         if (!isMatched && !__negative) {
             // if did not match and positive check -> fast return
-            return __negative;
+            return false;
         }
     }
 
@@ -68,7 +69,7 @@ export const matchPattern = (node, _pattern, stack) => {
 
         if (!isMatched && !__negative) {
             // if did not match and positive check -> fast return
-            return __negative;
+            return false;
         }
     }
 
@@ -80,16 +81,22 @@ export const matchNode = (node, stack) => {
 
     const mapped = parserMappings[type];
 
-    if (typeof mapped === 'string') return mapped;
+    if (typeof mapped === 'string') return rlog('PATTERN IS STRING') || mapped;
 
-    if (!Array.isArray(mapped)) return null;
+    if (!Array.isArray(mapped)) return rlog('UNDEFINED BEHAIVOR') || null;
 
     for (const variant of mapped) {
-        const { __type, ...pattern } = variant;
+        if (typeof variant === 'string') {
+            return rlog(`MATCH VARIANT ${variant}`) || variant;
+        }
 
+        const { __type, ...pattern } = variant;
         const isMatched = matchPattern(node, pattern, stack);
-        if (isMatched) return __type;
+
+        log('CHECK VARIANT', __type, isMatched);
+        if (isMatched) return rlog(`MATCH VARIANT ${__type}`) || __type;
     }
 
+    rlog('PATTERN WAS NOT FOUND');
     return null;
 };
