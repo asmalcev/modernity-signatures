@@ -4,13 +4,13 @@ import { Statement } from '@babel/types';
 
 const keysToLookup = new Set(KEYS);
 
-const hashNode = (node: Statement) => `start-${node.start}|end-${node.end}`;
+// const hashNode = (node: Statement) => `start-${node.start}|end-${node.end}`;
 // const hashNode = (node: Statement) => node.type;
 
 export const scan = (rootNode: Statement[]) => {
-    const report = {};
+    const report: Record<string, Statement[]> = {};
 
-    const addToReport = (key, node) => {
+    const addToReport = (key: string, node: Statement) => {
         if (key === null) return;
 
         if (report[key]) {
@@ -29,21 +29,32 @@ export const scan = (rootNode: Statement[]) => {
                 scanRecursive(subnode, [...stack, subnode]);
             }
         } else if (typeof node === 'object') {
+            if (node === null) return;
+
             const matched = matchNode(node, stack);
 
-            console.log(node.type, '->', matched);
+            // console.log(node.type, '->', matched);
             // console.info(
             //     matched || node.type,
             //     stack.map((n) => hashNode(n)),
             //     '\n'
             // );
 
-            addToReport(matched, node);
+            if (matched !== null) {
+                addToReport(matched, node);
+            }
 
             for (const key in node) {
                 if (keysToLookup.has(key as NODE_KEYS)) {
-                    const isArrayInKey = Array.isArray(node[key]);
-                    scanRecursive(node[key], isArrayInKey ? stack : [...stack, node[key]]);
+                    const isArrayInKey = Array.isArray(
+                        node[key as keyof Statement]
+                    );
+                    scanRecursive(
+                        // @ts-ignore
+                        node[key],
+                        // @ts-ignore
+                        isArrayInKey ? stack : [...stack, node[key]]
+                    );
                 }
             }
         }

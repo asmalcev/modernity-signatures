@@ -1,0 +1,66 @@
+:root {
+    --space: 24px;
+}
+
+:where(*:not(#editor *)) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.result {
+    overflow: hidden;
+}
+
+#compute {
+    width: 100%;
+    padding: 6px;
+}
+
+.overflow-conatiner {
+    overflow: auto;
+}
+
+#output li {
+    list-style: none;
+}
+
+#output summary {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#output summary:hover {
+    background-color: #0001;
+}
+
+#output p {
+    padding: 8px;
+}
+
+#output .feature {
+    color: blue;
+}
+
+.alert {
+    padding: 16px;
+    background-color: papayawhip;
+    border: 2px solid tomato;
+}
+
+.marked-code {
+    outline: 1px solid salmon;
+    background-color: salmon;
+}
+
+.loc-btn {
+    padding: 4px;
+    cursor: pointer;
+}
