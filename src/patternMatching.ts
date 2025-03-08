@@ -1,35 +1,56 @@
-import parserMappings from '../parserMapping.json';
-import { log, rlog } from './log';
+import { Statement } from '@babel/types';
+import untypedParserMappings from '../parserMapping.json';
+import { ParserMappings, PatternWithoutInternalType } from './interfaces';
+import { glog, log, rlog } from './log';
+import { PatternTypeGuard } from './typeguards';
 
-export const matchPattern = (node, _pattern, stack) => {
-    const { __negative, __parent, __any_parent, ...pattern } = _pattern;
+const parserMappings: ParserMappings = untypedParserMappings;
 
-    if (!node) {
-        return Boolean(__negative);
+export const matchPattern = (
+    node: Statement,
+    _pattern: PatternWithoutInternalType,
+    stack: Statement[]
+) => {
+    if (typeof _pattern === 'string') {
+        // glog(`FAST RESULT ${_pattern}`);
+        // console.log(node);
+        return node.type === _pattern;
     }
 
-    if (typeof _pattern === 'string' && typeof node.type === 'string') {
-        return node.type === _pattern;
+    const { __negative, __parent, __any_parent, __dynamicType, ...pattern } = _pattern;
+
+    if (__dynamicType) {
+        glog(`CHECK DYNAMIC TYPE ${__dynamicType}`);
+    }
+
+    if (!node) {
+        glog(`NODE IS UNDEFINED`);
+        return Boolean(__negative);
     }
 
     for (const key in pattern) {
         let isMatched = true;
 
         if (Array.isArray(pattern[key])) {
+            isMatched = false;
             for (const variant of pattern[key]) {
+                console.info('CHECK VARIANT', variant, isMatched);
                 // at least one of variants has matched
-                isMatched ||= matchPattern(node[key], variant[key], stack);
+                isMatched ||= matchPattern(node[key], variant, stack);
             }
-        } else if (typeof pattern[key] === 'string') {
-            // strict equality of string properties
+        } else if (
+            ['string', 'number', 'boolean'].includes(typeof pattern[key])
+        ) {
+            // strict equality of string or number properties
             isMatched = pattern[key] === node[key];
-        } else {
+        } else if (PatternTypeGuard(pattern[key])) {
             // node matches pattern
             isMatched = matchPattern(node[key], pattern[key], stack);
         }
 
         if (!isMatched && !__negative) {
             // if did not match and positive check -> fast return
+            glog(`FAST DID NOT MATCH PROPERTY`);
             return Boolean(__negative);
         }
     }
@@ -42,12 +63,13 @@ export const matchPattern = (node, _pattern, stack) => {
             for (const variant of __parent) {
                 isMatched ||= matchPattern(parentNode, variant, stack);
             }
-        } else {
+        } else if (PatternTypeGuard(__parent)) {
             isMatched = matchPattern(parentNode, __parent, stack);
         }
 
         if (!isMatched && !__negative) {
             // if did not match and positive check -> fast return
+            glog(`FAST DID NOT MATCH PARENT`);
             return false;
         }
     }
@@ -61,7 +83,7 @@ export const matchPattern = (node, _pattern, stack) => {
                     isMatched ||= matchPattern(parentNode, variant, stack);
                 }
             }
-        } else {
+        } else if (PatternTypeGuard(__any_parent)) {
             for (const parentNode of stack) {
                 isMatched ||= matchPattern(parentNode, __any_parent, stack);
             }
@@ -69,32 +91,44 @@ export const matchPattern = (node, _pattern, stack) => {
 
         if (!isMatched && !__negative) {
             // if did not match and positive check -> fast return
+            glog(`FAST DID NOT MATCH ANY PARENT`);
             return false;
         }
     }
 
+    glog(`ALL CHECKS PASSED`);
     return !__negative;
 };
 
-export const matchNode = (node, stack) => {
+export const matchNode = (node: Statement, stack: Statement[]) => {
     const { type } = node;
 
     const mapped = parserMappings[type];
 
-    if (typeof mapped === 'string') return rlog('PATTERN IS STRING') || mapped;
+    if (typeof mapped === 'string') {
+        rlog('PATTERN IS STRING');
+        return mapped;
+    }
 
-    if (!Array.isArray(mapped)) return rlog('UNDEFINED BEHAIVOR') || null;
+    if (!Array.isArray(mapped)) {
+        rlog('UNDEFINED BEHAIVOR');
+        return null;
+    }
 
     for (const variant of mapped) {
         if (typeof variant === 'string') {
-            return rlog(`MATCH VARIANT ${variant}`) || variant;
+            rlog(`MATCH VARIANT ${variant}`);
+            return variant;
         }
 
         const { __type, ...pattern } = variant;
         const isMatched = matchPattern(node, pattern, stack);
 
         log('CHECK VARIANT', __type, isMatched);
-        if (isMatched) return rlog(`MATCH VARIANT ${__type}`) || __type;
+        if (isMatched) {
+            rlog(`MATCH VARIANT ${__type}`);
+            return __type;
+        }
     }
 
     rlog('PATTERN WAS NOT FOUND');

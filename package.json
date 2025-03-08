@@ -2,14 +2,15 @@
     "name": "modernity-signatures",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "src/index.ts",
     "scripts": {
         "generate-template": "bun helpers/generateCompatTemplate.js > compatMapping_new.json",
         "migrate-template": "bun helpers/migrateCompatTemplates.js > compatMapping_migrated.json",
         "clean-up-tmp-template": "mv compatMapping_migrated.json compatMapping.json && rm compatMapping_new.json",
         "update-template": "npm run generate-template && npm run migrate-template && npm run clean-up-tmp-template",
         "test": "vitest",
-        "start": "bun src/index.js"
+        "start": "bun src/index.ts",
+        "start-ts": "bun src/ts.ts"
     },
     "repository": {
         "type": "git",
@@ -26,9 +27,15 @@
         "@mdn/browser-compat-data": "^5.5.22",
         "esbuild": "^0.20.1",
         "flat": "^6.0.1",
-        "rollup": "^4.12.1"
+        "rollup": "^4.12.1",
+        "typescript": "^5.6.3"
     },
     "devDependencies": {
+        "@babel/types": "^7.25.2",
+        "@types/node": "^22.5.0",
         "vitest": "^1.6.0"
+    },
+    "engines": {
+        "bun": "*"
     }
 }

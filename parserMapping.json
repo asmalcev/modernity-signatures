@@ -363,6 +363,38 @@
     "Super": "Super",
     "ThisExpression": "ThisExpression",
     "MemberExpression": [
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "concat"
+            },
+            "__type": "ArrayConcatExpression"
+        },
+        {
+            "object": {
+                "name": "Intl"
+            },
+            "property": {
+                "name": "Locale"
+            },
+            "__type": "IntlLocale"
+        },
+        {
+            "object": {
+                "__dynamicType": "Number"
+            },
+            "property": {
+                "name": "toFixed"
+            },
+            "__type": "NumberToFixed"
+        },
         "MemberExpression"
     ],
     "SpreadElement": [
@@ -444,5 +476,12 @@
             },
             "__type": "FunctionArgumentsExpressionStatement"
         }
+    ],
+    "Identifier": [
+        {
+            "name": "Intl",
+            "__type": "Intl"
+        },
+        "Identifier"
     ]
 }
