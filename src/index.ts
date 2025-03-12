@@ -3,7 +3,7 @@ import fs from 'node:fs';
 
 import { scan } from './scan';
 
-const data = fs.readFileSync('sandbox/intl.js', {
+const data = fs.readFileSync('sandbox/test1.js', {
     encoding: 'utf-8',
 });
 

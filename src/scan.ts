@@ -4,9 +4,6 @@ import { Statement } from '@babel/types';
 
 const keysToLookup = new Set(KEYS);
 
-// const hashNode = (node: Statement) => `start-${node.start}|end-${node.end}`;
-// const hashNode = (node: Statement) => node.type;
-
 export const scan = (rootNode: Statement[]) => {
     const report: Record<string, Statement[]> = {};
 
@@ -33,12 +30,7 @@ export const scan = (rootNode: Statement[]) => {
 
             const matched = matchNode(node, stack);
 
-            // console.log(node.type, '->', matched);
-            // console.info(
-            //     matched || node.type,
-            //     stack.map((n) => hashNode(n)),
-            //     '\n'
-            // );
+            console.log(node.type, '->', matched);
 
             if (matched !== null) {
                 addToReport(matched, node);

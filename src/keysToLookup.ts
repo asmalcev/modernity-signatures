@@ -23,6 +23,7 @@ export const KEYS = [
     'value',
     'key',
     'handler',
+    'block',
 ] as const;
 
 export type NODE_KEYS = (typeof KEYS)[number];

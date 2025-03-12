@@ -1,3 +1,3 @@
-await 1;
+await fetch('https://example.com');
 
 // const foo = async () => await Promise.resolve();

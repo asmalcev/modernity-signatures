@@ -34,7 +34,6 @@ const highlightField = StateField.define<DecorationSet>({
         let nextDecorations = decorations.map(tr.changes);
 
         tr.effects.forEach((e) => {
-            console.log(e);
             if (e.is(addHighlight)) {
                 nextDecorations = nextDecorations.update({
                     add: [highlightDecoration.range(e.value.from, e.value.to)],

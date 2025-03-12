@@ -106,7 +106,7 @@ const init = () => {
             sourceType: 'module',
         });
 
-        console.log(parsed);
+        console.log('program', parsed);
 
         // @ts-ignore
         const report = scan(parsed.program.body);

@@ -12,10 +12,20 @@
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content 1fr;
+    grid-template-areas: 'a a' 'e r';
+    height: 100vh;
+    overflow: hidden;
+}
+
+#editor {
+    grid-area: e;
+    overflow: auto;
 }
 
 .result {
-    overflow: hidden;
+    grid-area: r;
+    overflow: auto;
 }
 
 #compute {
@@ -23,8 +33,8 @@
     padding: 6px;
 }
 
-.overflow-conatiner {
-    overflow: auto;
+#output {
+    padding-bottom: 50vh;
 }
 
 #output li {
@@ -50,6 +60,7 @@
 }
 
 .alert {
+    grid-area: a;
     padding: 16px;
     background-color: papayawhip;
     border: 2px solid tomato;

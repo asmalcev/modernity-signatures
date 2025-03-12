@@ -9,8 +9,7 @@
         "clean-up-tmp-template": "mv compatMapping_migrated.json compatMapping.json && rm compatMapping_new.json",
         "update-template": "npm run generate-template && npm run migrate-template && npm run clean-up-tmp-template",
         "test": "vitest",
-        "start": "bun src/index.ts",
-        "start-ts": "bun src/ts.ts"
+        "start": "bun src/index.ts"
     },
     "repository": {
         "type": "git",
