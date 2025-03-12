@@ -10,66 +10,6 @@ try {
 } finally {
     console.log('finally');
 }
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
-
-try {
-    await fetch('https://example.com');
-} finally {
-    console.log('finally');
-}
 `;
 
 const addHighlight = StateEffect.define<{ from: number; to: number }>({

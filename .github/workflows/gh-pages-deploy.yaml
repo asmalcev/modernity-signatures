@@ -18,7 +18,13 @@ jobs:
       with:
         node-version: 20
 
-    - name: Install dependencies
+    - name: Install dependencies of analyzer
+      run: npm ci
+
+    - name: Run analyzer's tests
+      run: npm run test
+
+    - name: Install dependencies of online-sandbox
       working-directory: ./online-sandbox
       run: npm ci
 
