@@ -26,6 +26,7 @@
 .result {
     grid-area: r;
     overflow: auto;
+    padding-bottom: 50vh;
 }
 
 #compute {
@@ -33,21 +34,17 @@
     padding: 6px;
 }
 
-#output {
-    padding-bottom: 50vh;
-}
-
 #output li {
     list-style: none;
 }
 
-#output summary {
+summary {
     cursor: pointer;
     padding: 8px;
     border-radius: 8px;
 }
 
-#output summary:hover {
+summary:hover {
     background-color: #0001;
 }
 
