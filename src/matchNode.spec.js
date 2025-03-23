@@ -34,6 +34,19 @@ describe('Match Node Tests', () => {
             matchNode({
                 type: 'TryStatement',
                 handler: { type: 'CatchClause' },
+                finalizer: { type: 'BlockStatement' },
+            })
+        ).toBe('OptionalCatchBindingTryStatement');
+    });
+
+    test('PROPS AS PATTERNS: Node as one of properties of pattern', () => {
+        expect(
+            matchNode({
+                type: 'TryStatement',
+                handler: {
+                    type: 'CatchClause',
+                    param: { type: 'Identifier' },
+                },
             })
         ).toBe('TryStatement');
     });
@@ -42,7 +55,10 @@ describe('Match Node Tests', () => {
         expect(
             matchNode({
                 type: 'TryStatement',
-                handler: { type: 'CatchClause' },
+                handler: {
+                    type: 'CatchClause',
+                    param: { type: 'Identifier' },
+                },
                 finalizer: { type: 'BlockStatement' },
             })
         ).toBe('TryStatement');

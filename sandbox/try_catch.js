@@ -1,5 +1,1 @@
-try {
-    1;
-} catch {
-    2;
-}
+try {} catch {} finally {}

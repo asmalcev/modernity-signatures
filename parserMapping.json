@@ -402,10 +402,18 @@
     "EmptyStatement": "EmptyStatement",
     "TryStatement": [
         {
-            "handler": {
-                "__negative": true,
-                "type": "CatchClause"
-            },
+            "handler": [
+                {
+                    "__negative": true,
+                    "type": "CatchClause"
+                },
+                {
+                    "type": "CatchClause",
+                    "param": {
+                        "__negative": true
+                    }
+                }
+            ],
             "__type": "OptionalCatchBindingTryStatement"
         },
         "TryStatement"
