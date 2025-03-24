@@ -1,106 +1,100 @@
-import babelParser from '@babel/parser';
 import ts from 'typescript';
-import fs from 'node:fs';
-import path from 'node:path';
-import { exit } from 'node:process';
 
-const sourceCodeFileName = path.join(__dirname, 'source.ts');
+export const createGetTypeScriptType = (sourceCodeFileName: string) => {
+    const program = ts.createProgram([sourceCodeFileName], {
+        allowJs: true,
+        declaration: true,
+        emitDeclarationOnly: true,
+    });
 
-const sourceCode = fs.readFileSync(sourceCodeFileName, {
-    encoding: 'utf-8',
-});
+    const typeChecker = program.getTypeChecker();
 
-const babelAST = babelParser.parse(sourceCode, {
-    sourceType: 'module',
-    plugins: ['typescript'],
-}) as any;
+    const tsSourceFile = program.getSourceFile(sourceCodeFileName);
 
-const babelNode = babelAST.program.body[1].expression.callee.object;
-
-// console.log(babelNode);
-
-const program = ts.createProgram([sourceCodeFileName], {
-    allowJs: true,
-    declaration: true,
-    emitDeclarationOnly: true,
-});
-
-const typeChecker = program.getTypeChecker();
-
-const findMatchingTSNode = (_tsNode: ts.Node): ts.Node | undefined => {
-    if (
-        _tsNode.getStart() === babelNode.start &&
-        _tsNode.getEnd() === babelNode.end
-    ) {
-        return _tsNode;
+    if (!tsSourceFile) {
+        throw new Error('No tsSourceFile found');
     }
 
-    return ts.forEachChild(_tsNode, (child) => findMatchingTSNode(child));
+    const findMatchingTSNode = (
+        _tsNode: ts.Node,
+        babelNode: any
+    ): ts.Node | undefined => {
+        if (
+            _tsNode.getStart() === babelNode.start &&
+            _tsNode.getEnd() === babelNode.end
+        ) {
+            return _tsNode;
+        }
+
+        return ts.forEachChild(_tsNode, (child) =>
+            findMatchingTSNode(child, babelNode)
+        );
+    };
+
+    return (babelNode: any) => {
+        const tsNode = findMatchingTSNode(tsSourceFile, babelNode);
+
+        if (!tsNode) {
+            console.log('No tsNode found');
+            return null;
+        }
+
+        const symbol = typeChecker.getSymbolAtLocation(tsNode);
+
+        if (!symbol) {
+            console.log('No symbol found');
+            return null;
+        }
+
+        const symbolType = typeChecker.getTypeOfSymbolAtLocation(
+            symbol,
+            tsNode
+        );
+
+        const flags = symbolType.getFlags();
+
+        if (flags & ts.TypeFlags.Any) {
+            return 'any';
+        } else if (flags & ts.TypeFlags.BigInt) {
+            return 'bigint';
+        } else if (flags & ts.TypeFlags.Object) {
+            return symbolType.symbol.name;
+        } else if (
+            flags & ts.TypeFlags.Number ||
+            flags & ts.TypeFlags.NumberLiteral
+        ) {
+            return 'number';
+        } else if (
+            flags & ts.TypeFlags.String ||
+            flags & ts.TypeFlags.StringLiteral
+        ) {
+            return 'string';
+        } else if (flags & ts.TypeFlags.Undefined) {
+            return 'undefined';
+        } else if (flags & ts.TypeFlags.Void) {
+            return 'void';
+        } else if (flags & ts.TypeFlags.Null) {
+            return 'null';
+        } else if (flags & ts.TypeFlags.Boolean) {
+            return 'boolean';
+        } else if (flags & ts.TypeFlags.Never) {
+            return 'never';
+        } else if (flags & ts.TypeFlags.Unknown) {
+            return 'unknown';
+        } else if (flags & ts.TypeFlags.TemplateLiteral) {
+            return 'template literal';
+        } else if (flags & ts.TypeFlags.Enum) {
+            return 'enum';
+        } else if (flags & ts.TypeFlags.Union) {
+            return 'union';
+        } else if (flags & ts.TypeFlags.Intersection) {
+            return 'intersection';
+        } else if (flags & ts.TypeFlags.BooleanLiteral) {
+            return 'boolean';
+        } else if (flags & ts.TypeFlags.BigIntLiteral) {
+            return 'big int literal';
+        }
+
+        return null;
+    };
 };
-
-const tsSourceFile = program.getSourceFile(sourceCodeFileName);
-
-if (!tsSourceFile) {
-    console.error('No source file found');
-    exit(1);
-}
-
-const tsNode = findMatchingTSNode(tsSourceFile);
-
-if (!tsNode) {
-    console.error('No tsNode found');
-    exit(1);
-}
-
-const symbol = typeChecker.getSymbolAtLocation(tsNode);
-
-if (!symbol) {
-    console.error('No symbol found');
-    exit(1);
-}
-
-// console.log(symbol);
-
-const symbolType = typeChecker.getTypeOfSymbolAtLocation(symbol, tsNode);
-
-const flags = symbolType.getFlags();
-
-if (flags & ts.TypeFlags.Any) {
-    console.log('any');
-} else if (flags & ts.TypeFlags.BigInt) {
-    console.log('bigint');
-} else if (flags & ts.TypeFlags.Object) {
-    console.log('object ->', symbolType.symbol.name);
-} else if (flags & ts.TypeFlags.Number) {
-    console.log('number');
-} else if (flags & ts.TypeFlags.String) {
-    console.log('string');
-} else if (flags & ts.TypeFlags.Undefined) {
-    console.log('undefined');
-} else if (flags & ts.TypeFlags.Void) {
-    console.log('void');
-} else if (flags & ts.TypeFlags.Null) {
-    console.log('null');
-} else if (flags & ts.TypeFlags.Boolean) {
-    console.log('boolean');
-} else if (flags & ts.TypeFlags.Never) {
-    console.log('never');
-} else if (flags & ts.TypeFlags.Unknown) {
-    console.log('unknown');
-} else if (flags & ts.TypeFlags.TemplateLiteral) {
-    console.log('template literal');
-} else if (flags & ts.TypeFlags.Enum) {
-    console.log('enum');
-} else if (flags & ts.TypeFlags.Union) {
-    console.log('union');
-} else if (flags & ts.TypeFlags.Intersection) {
-    console.log('intersection');
-} else if (flags & ts.TypeFlags.NumberLiteral) {
-    console.log('number literal');
-} else if (flags & ts.TypeFlags.StringLiteral) {
-    console.log('string literal');
-} else if (flags & ts.TypeFlags.BooleanLiteral) {
-    console.log('boolean literal');
-} else if (flags & ts.TypeFlags.BigIntLiteral) {
-    console.log('big int literal');
-}
