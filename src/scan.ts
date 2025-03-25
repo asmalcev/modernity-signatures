@@ -1,10 +1,14 @@
 import { matchNode } from './patternMatching';
 import { KEYS, NODE_KEYS } from './keysToLookup';
-import { Statement } from '@babel/types';
+import { MemberExpression, Statement } from '@babel/types';
+import { GetTypeScriptType } from './ts-experiments/interfaces';
 
 const keysToLookup = new Set(KEYS);
 
-export const scan = (rootNode: Statement[]) => {
+export const scan = (
+    rootNode: Statement[],
+    getTypeScriptType: GetTypeScriptType
+) => {
     const report: Record<string, Statement[]> = {};
 
     const addToReport = (key: string, node: Statement) => {
@@ -27,6 +31,19 @@ export const scan = (rootNode: Statement[]) => {
             }
         } else if (typeof node === 'object') {
             if (node === null) return;
+
+            if (node.type.valueOf() === 'MemberExpression') {
+                const memberExpressionNode =
+                    node as unknown as MemberExpression;
+
+                const dynamicType = getTypeScriptType(
+                    memberExpressionNode.object
+                );
+                Object.defineProperty(memberExpressionNode, '__dynamicType', {
+                    value: dynamicType,
+                    enumerable: true,
+                });
+            }
 
             const matched = matchNode(node, stack);
 

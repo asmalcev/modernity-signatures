@@ -34,7 +34,7 @@ export const matchPattern = (
         if (Array.isArray(pattern[key])) {
             isMatched = false;
             for (const variant of pattern[key]) {
-                console.info('CHECK VARIANT', variant, isMatched);
+                log('CHECK VARIANT', variant, isMatched);
                 // at least one of variants has matched
                 isMatched ||= matchPattern(node[key], variant, stack);
             }

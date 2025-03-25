@@ -4,17 +4,24 @@ import fs from 'node:fs';
 import { scan } from './scan';
 import { getBrowserSupport } from './getBrowserSupport';
 
-const data = fs.readFileSync('sandbox/try_catch.js', {
+import { createGetTypeScriptType } from './ts-experiments/manual';
+
+const sourceCodeFileName = 'sandbox/array.ts';
+
+const data = fs.readFileSync(sourceCodeFileName, {
     encoding: 'utf-8',
 });
 
 const parsed = babel.parse(data, {
     sourceType: 'module',
+    plugins: ['typescript'],
 });
 
 // console.log(JSON.stringify(parsed))
 
-const report = scan(parsed.program.body);
+const getTypeScriptType = createGetTypeScriptType(sourceCodeFileName);
+
+const report = scan(parsed.program.body, getTypeScriptType);
 
 // console.log(report);
 

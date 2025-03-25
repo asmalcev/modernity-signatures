@@ -366,6 +366,20 @@
             "__type": "ArrayConcatExpression"
         },
         {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "push"
+            },
+            "__type": "ArrayPushExpression"
+        },
+        {
             "object": {
                 "name": "Intl"
             },
