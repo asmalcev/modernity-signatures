@@ -40,7 +40,10 @@ export const createGetTypeScriptType = (sourceCodeFileName: string) => {
     }) => {
         if (flags & ts.TypeFlags.Any) {
             return 'any';
-        } else if (flags & ts.TypeFlags.BigInt) {
+        } else if (
+            flags & ts.TypeFlags.BigInt ||
+            flags & ts.TypeFlags.BigIntLiteral
+        ) {
             return 'bigint';
         } else if (flags & ts.TypeFlags.Object) {
             return nodeType.symbol.name;
@@ -60,7 +63,10 @@ export const createGetTypeScriptType = (sourceCodeFileName: string) => {
             return 'void';
         } else if (flags & ts.TypeFlags.Null) {
             return 'null';
-        } else if (flags & ts.TypeFlags.Boolean) {
+        } else if (
+            flags & ts.TypeFlags.Boolean ||
+            flags & ts.TypeFlags.BooleanLiteral
+        ) {
             return 'boolean';
         } else if (flags & ts.TypeFlags.Never) {
             return 'never';
@@ -71,13 +77,18 @@ export const createGetTypeScriptType = (sourceCodeFileName: string) => {
         } else if (flags & ts.TypeFlags.Enum) {
             return 'enum';
         } else if (flags & ts.TypeFlags.Union) {
-            return 'union';
+            const unionType = nodeType as ts.UnionType;
+            const unionResult: any = [];
+
+            for (const subType of unionType.types) {
+                unionResult.push(
+                    getType({ flags: subType.getFlags(), nodeType: subType })
+                );
+            }
+
+            return unionResult as Array<string | string[] | null>;
         } else if (flags & ts.TypeFlags.Intersection) {
             return 'intersection';
-        } else if (flags & ts.TypeFlags.BooleanLiteral) {
-            return 'boolean';
-        } else if (flags & ts.TypeFlags.BigIntLiteral) {
-            return 'big int literal';
         }
 
         return null;
