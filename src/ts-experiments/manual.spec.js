@@ -107,4 +107,33 @@ describe('[manual] getTypeScriptType tests', () => {
             getTypeScriptType(babelAST.program.body[1].expression.callee.object)
         ).toBe('Array');
     });
+
+    test(`Hard chain of methods`, () => {
+        const sourceCodeFileName = path.join(__dirname, 'tests/chain-hard.ts');
+
+        const babelAST = getBabelAST(sourceCodeFileName);
+
+        const getTypeScriptType = createGetTypeScriptType(sourceCodeFileName);
+
+        expect(getTypeScriptType(babelAST.program.body[1].expression)).toBe(
+            'boolean'
+        );
+
+        expect(
+            getTypeScriptType(babelAST.program.body[1].expression.callee.object)
+        ).toBe('boolean');
+
+        expect(
+            getTypeScriptType(
+                babelAST.program.body[1].expression.callee.object.callee.object
+            )
+        ).toBe('string');
+
+        expect(
+            getTypeScriptType(
+                babelAST.program.body[1].expression.callee.object.callee.object
+                    .callee.object
+            )
+        ).toBe('number');
+    });
 });

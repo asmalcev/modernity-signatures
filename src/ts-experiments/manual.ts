@@ -31,34 +31,19 @@ export const createGetTypeScriptType = (sourceCodeFileName: string) => {
         );
     };
 
-    return (babelNode: any) => {
-        const tsNode = findMatchingTSNode(tsSourceFile, babelNode);
-
-        if (!tsNode) {
-            console.log('No tsNode found');
-            return null;
-        }
-
-        const symbol = typeChecker.getSymbolAtLocation(tsNode);
-
-        if (!symbol) {
-            console.log('No symbol found');
-            return null;
-        }
-
-        const symbolType = typeChecker.getTypeOfSymbolAtLocation(
-            symbol,
-            tsNode
-        );
-
-        const flags = symbolType.getFlags();
-
+    const getType = ({
+        flags,
+        nodeType,
+    }: {
+        flags: ts.TypeFlags;
+        nodeType: ts.Type;
+    }) => {
         if (flags & ts.TypeFlags.Any) {
             return 'any';
         } else if (flags & ts.TypeFlags.BigInt) {
             return 'bigint';
         } else if (flags & ts.TypeFlags.Object) {
-            return symbolType.symbol.name;
+            return nodeType.symbol.name;
         } else if (
             flags & ts.TypeFlags.Number ||
             flags & ts.TypeFlags.NumberLiteral
@@ -96,5 +81,37 @@ export const createGetTypeScriptType = (sourceCodeFileName: string) => {
         }
 
         return null;
+    };
+
+    return (babelNode: any) => {
+        const tsNode = findMatchingTSNode(tsSourceFile, babelNode);
+
+        if (!tsNode) {
+            console.error('No tsNode found');
+            return null;
+        }
+
+        if (ts.isCallExpression(tsNode)) {
+            const nodeType = typeChecker.getTypeAtLocation(tsNode);
+            const flags = nodeType.getFlags();
+
+            return getType({ flags, nodeType });
+        }
+
+        const symbol = typeChecker.getSymbolAtLocation(tsNode);
+
+        if (!symbol) {
+            console.error('No symbol found');
+            return null;
+        }
+
+        const symbolType = typeChecker.getTypeOfSymbolAtLocation(
+            symbol,
+            tsNode
+        );
+
+        const flags = symbolType.getFlags();
+
+        return getType({ flags, nodeType: symbolType });
     };
 };
