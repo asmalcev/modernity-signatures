@@ -6,7 +6,7 @@ import { getBrowserSupport } from './getBrowserSupport';
 
 import { createGetTypeScriptType } from './ts-experiments/manual';
 
-const sourceCodeFileName = 'sandbox/array.ts';
+const sourceCodeFileName = 'sandbox/number_toFixed.ts';
 
 const data = fs.readFileSync(sourceCodeFileName, {
     encoding: 'utf-8',

@@ -7,7 +7,7 @@ const keysToLookup = new Set(KEYS);
 
 export const scan = (
     rootNode: Statement[],
-    getTypeScriptType: GetTypeScriptType
+    getTypeScriptType?: GetTypeScriptType
 ) => {
     const report: Record<string, Statement[]> = {};
 
@@ -32,22 +32,28 @@ export const scan = (
         } else if (typeof node === 'object') {
             if (node === null) return;
 
-            if (node.type.valueOf() === 'MemberExpression') {
-                const memberExpressionNode =
-                    node as unknown as MemberExpression;
+            if (getTypeScriptType) {
+                if (node.type.valueOf() === 'MemberExpression') {
+                    const memberExpressionNode =
+                        node as unknown as MemberExpression;
 
-                const dynamicType = getTypeScriptType(
-                    memberExpressionNode.object
-                );
-                Object.defineProperty(memberExpressionNode, '__dynamicType', {
-                    value: dynamicType,
-                    enumerable: true,
-                });
+                    const dynamicType = getTypeScriptType(
+                        memberExpressionNode.object
+                    );
+                    Object.defineProperty(
+                        memberExpressionNode,
+                        '__dynamicType',
+                        {
+                            value: dynamicType,
+                            enumerable: true,
+                        }
+                    );
+                }
             }
 
             const matched = matchNode(node, stack);
 
-            console.log(node.type, '->', matched);
+            // console.log(node.type, '->', matched);
 
             if (matched !== null) {
                 addToReport(matched, node);

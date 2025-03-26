@@ -11,7 +11,8 @@
         "test": "vitest src/matchNode.spec.js src/uniqueInternalTypes.spec.js",
         "start": "bun src/index.ts",
         "test-ts": "vitest src/ts-experiments/qwen.spec.js",
-        "test-manual-ts": "vitest src/ts-experiments/manual.spec.js"
+        "test-manual-ts": "vitest src/ts-experiments/manual.spec.js",
+        "test-analyzer": "vitest src/analyzer.spec.js"
     },
     "repository": {
         "type": "git",

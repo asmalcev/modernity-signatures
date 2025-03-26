@@ -389,9 +389,14 @@
             "__type": "IntlLocale"
         },
         {
-            "object": {
-                "__dynamicType": "Number"
-            },
+            "object": [
+                {
+                    "type": "NumericLiteral"
+                },
+                {
+                    "__dynamicType": "number"
+                }
+            ],
             "property": {
                 "name": "toFixed"
             },
