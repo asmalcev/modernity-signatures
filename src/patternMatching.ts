@@ -1,15 +1,18 @@
-import { Statement } from '@babel/types';
 import untypedParserMappings from '../parserMapping.json';
-import { ParserMappings, PatternWithoutInternalType } from './interfaces';
-import { glog, log, rlog } from './log';
+import {
+    ExtendedStatement,
+    ParserMappings,
+    PatternWithoutInternalType,
+} from './interfaces';
+import { blog, glog, log, rlog } from './log';
 import { PatternTypeGuard } from './typeguards';
 
 const parserMappings: ParserMappings = untypedParserMappings;
 
 export const matchPattern = (
-    node: Statement,
+    node: ExtendedStatement,
     _pattern: PatternWithoutInternalType,
-    stack: Statement[]
+    stack: ExtendedStatement[]
 ) => {
     if (typeof _pattern === 'string') {
         // glog(`FAST RESULT ${_pattern}`);
@@ -17,10 +20,13 @@ export const matchPattern = (
         return node.type === _pattern;
     }
 
-    const { __negative, __parent, __any_parent, __dynamicType, ...pattern } = _pattern;
+    const { __negative, __parent, __any_parent, __dynamicType, ...pattern } =
+        _pattern;
 
     if (__dynamicType) {
         glog(`CHECK DYNAMIC TYPE ${__dynamicType}`);
+
+        return node.__dynamicType === __dynamicType;
     }
 
     if (!node) {
@@ -100,7 +106,10 @@ export const matchPattern = (
     return !__negative;
 };
 
-export const matchNode = (node: Statement, stack: Statement[]) => {
+export const matchNode = (
+    node: ExtendedStatement,
+    stack: ExtendedStatement[]
+) => {
     const { type } = node;
 
     const mapped = parserMappings[type];

@@ -1,8 +1,6 @@
 import { Statement } from '@babel/types';
 import { NODE_KEYS } from './keysToLookup';
 
-export type DynamicType = 'Array' | 'Object' | 'String' | 'Number' | 'Boolean';
-
 export type UnkownObject = Partial<
     Record<NODE_KEYS, string | number | boolean | Object>
 >;
@@ -12,7 +10,7 @@ type ObjectPattern = {
     __negative?: boolean;
     __parent?: Pattern[] | string;
     __any_parent?: Pattern[] | string;
-    __dynamicType?: DynamicType;
+    __dynamicType?: string;
 } & UnkownObject;
 
 type StringPattern = string;
@@ -41,3 +39,9 @@ export type JSTypes =
     | 'boolean';
 
 export type Scope = Record<string, JSTypes>;
+
+export type ExtendStatement<T> = T & {
+    __dynamicType?: string;
+};
+
+export type ExtendedStatement = ExtendStatement<Statement>;

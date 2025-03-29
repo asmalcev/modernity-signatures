@@ -40,20 +40,24 @@ export const scan = (
                     const dynamicType = getTypeScriptType(
                         memberExpressionNode.object
                     );
-                    Object.defineProperty(
-                        memberExpressionNode,
-                        '__dynamicType',
-                        {
-                            value: dynamicType,
-                            enumerable: true,
+
+                    if (dynamicType) {
+                        if (Array.isArray(dynamicType)) {
+                            Object.assign(memberExpressionNode.object, {
+                                __dynamicType: dynamicType[0] ?? undefined,
+                            });
+                        } else {
+                            Object.assign(memberExpressionNode.object, {
+                                __dynamicType: dynamicType,
+                            });
                         }
-                    );
+                    }
                 }
             }
 
             const matched = matchNode(node, stack);
 
-            // console.log(node.type, '->', matched);
+            console.log(node.type, '->', matched);
 
             if (matched !== null) {
                 addToReport(matched, node);

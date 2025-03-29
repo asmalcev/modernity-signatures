@@ -86,7 +86,7 @@ export const createGetTypeScriptType = (sourceCodeFileName: string) => {
                 );
             }
 
-            return unionResult as Array<string | string[] | null>;
+            return unionResult as Array<string | null>;
         } else if (flags & ts.TypeFlags.Intersection) {
             return 'intersection';
         }
