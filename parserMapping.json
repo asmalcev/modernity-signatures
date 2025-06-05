@@ -380,6 +380,524 @@
             "__type": "ArrayPushExpression"
         },
         {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "pop"
+            },
+            "__type": "ArrayPopExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "shift"
+            },
+            "__type": "ArrayShiftExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "unshift"
+            },
+            "__type": "ArrayUnshiftExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "slice"
+            },
+            "__type": "ArraySliceExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "splice"
+            },
+            "__type": "ArraySpliceExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "map"
+            },
+            "__type": "ArrayMapExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "filter"
+            },
+            "__type": "ArrayFilterExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "reduce"
+            },
+            "__type": "ArrayReduceExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "find"
+            },
+            "__type": "ArrayFindExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "at"
+            },
+            "__type": "ArrayAtExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "copyWithin"
+            },
+            "__type": "ArrayCopyWithinExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "entries"
+            },
+            "__type": "ArrayEntriesExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "every"
+            },
+            "__type": "ArrayEveryExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "fill"
+            },
+            "__type": "ArrayFillExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "findIndex"
+            },
+            "__type": "ArrayFindIndexExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "findLast"
+            },
+            "__type": "ArrayFindLastExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "findLastIndex"
+            },
+            "__type": "ArrayFindLastIndexExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "flat"
+            },
+            "__type": "ArrayFlatExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "flatMap"
+            },
+            "__type": "ArrayFlatMapExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "forEach"
+            },
+            "__type": "ArrayForEachExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "includes"
+            },
+            "__type": "ArrayIncludesExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "indexOf"
+            },
+            "__type": "ArrayIndexOfExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "join"
+            },
+            "__type": "ArrayJoinExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "keys"
+            },
+            "__type": "ArrayKeysExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "lastIndexOf"
+            },
+            "__type": "ArrayLastIndexOfExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "reduceRight"
+            },
+            "__type": "ArrayReduceRightExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "reverse"
+            },
+            "__type": "ArrayReverseExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "some"
+            },
+            "__type": "ArraySomeExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "sort"
+            },
+            "__type": "ArraySortExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "toLocaleString"
+            },
+            "__type": "ArrayToLocaleStringExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "toReversed"
+            },
+            "__type": "ArrayToReversedExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "toSorted"
+            },
+            "__type": "ArrayToSortedExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "toSpliced"
+            },
+            "__type": "ArrayToSplicedExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "toString"
+            },
+            "__type": "ArrayToStringExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "values"
+            },
+            "__type": "ArrayValuesExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "with"
+            },
+            "__type": "ArrayWithExpression"
+        },
+        {
+            "object": [
+                {
+                    "type": "ArrayExpression"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "length"
+            },
+            "__type": "ArrayLengthExpression"
+        },
+        {
             "object": {
                 "name": "Intl"
             },

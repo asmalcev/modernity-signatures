@@ -57,7 +57,7 @@ export const scan = (
 
             const matched = matchNode(node, stack);
 
-            console.log(node.type, '->', matched);
+            // console.log(node.type, '->', matched);
 
             if (matched !== null) {
                 addToReport(matched, node);
