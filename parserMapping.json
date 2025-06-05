@@ -402,6 +402,15 @@
             },
             "__type": "NumberToFixed"
         },
+        {
+            "object": {
+                "name": "Promise"
+            },
+            "property": {
+                "name": "withResolvers"
+            },
+            "__type": "PromiseWithResolvers"
+        },
         "MemberExpression"
     ],
     "SpreadElement": [
