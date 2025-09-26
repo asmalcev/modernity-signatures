@@ -898,6 +898,20 @@
             "__type": "ArrayLengthExpression"
         },
         {
+            "object": [
+                {
+                    "name": "Array"
+                },
+                {
+                    "__dynamicType": "Array"
+                }
+            ],
+            "property": {
+                "name": "from"
+            },
+            "__type": "ArrayFromExpression"
+        },
+        {
             "object": {
                 "name": "Intl"
             },

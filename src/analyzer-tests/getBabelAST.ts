@@ -2,7 +2,7 @@ import fs from 'fs';
 
 import babelParser from '@babel/parser';
 
-export const getBabelAST = (sourceCodeFileName) =>
+export const getBabelAST = (sourceCodeFileName: string) =>
     babelParser.parse(
         fs.readFileSync(sourceCodeFileName, {
             encoding: 'utf-8',
