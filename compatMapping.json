@@ -518,7 +518,7 @@
     "builtins.Number.parseInt": "",
     "builtins.Number.POSITIVE_INFINITY": "",
     "builtins.Number.toExponential": "",
-    "builtins.Number.toFixed": "",
+    "builtins.Number.toFixed": "NumberToFixed",
     "builtins.Number.toLocaleString": "",
     "builtins.Number.toLocaleString.locales_parameter": "",
     "builtins.Number.toLocaleString.options_parameter": "",

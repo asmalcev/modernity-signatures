@@ -136,4 +136,31 @@ describe('[manual] getTypeScriptType tests', () => {
             )
         ).toBe('number');
     });
+
+    test(`Global Intl method`, () => {
+        const sourceCodeFileName = path.join(__dirname, 'tests/global-intl.ts');
+
+        const babelAST = getBabelAST(sourceCodeFileName);
+
+        const getTypeScriptType = createGetTypeScriptType(sourceCodeFileName);
+
+        expect(
+            getTypeScriptType(babelAST.program.body[1].expression.callee.object)
+        ).toBe('Intl');
+    });
+
+    test(`Types of union`, () => {
+        const sourceCodeFileName = path.join(
+            __dirname,
+            'tests/array-or-set.ts'
+        );
+
+        const babelAST = getBabelAST(sourceCodeFileName);
+
+        const getTypeScriptType = createGetTypeScriptType(sourceCodeFileName);
+
+        expect(getTypeScriptType(babelAST.program.body[2].right)).toStrictEqual(
+            ['Array', 'Set']
+        );
+    });
 });

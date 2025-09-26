@@ -10,8 +10,8 @@
         "update-template": "npm run generate-template && npm run migrate-template && npm run clean-up-tmp-template",
         "test": "vitest src/matchNode.spec.js src/uniqueInternalTypes.spec.js",
         "start": "bun src/index.ts",
-        "test-ts": "vitest src/ts-experiments/qwen.spec.js",
-        "test-manual-ts": "vitest src/ts-experiments/manual.spec.js"
+        "test-manual-ts": "vitest src/ts-experiments/manual.spec.js",
+        "test-analyzer": "vitest src/analyzer-tests/"
     },
     "repository": {
         "type": "git",
@@ -28,12 +28,12 @@
         "@mdn/browser-compat-data": "^5.5.22",
         "esbuild": "^0.20.1",
         "rollup": "^4.12.1",
-        "typescript": "^5.6.3"
+        "typescript": "^5.8.3"
     },
     "devDependencies": {
-        "flat": "^6.0.1",
         "@babel/types": "^7.25.2",
         "@types/node": "^22.5.0",
+        "flat": "^6.0.1",
         "vitest": "^1.6.0"
     },
     "engines": {
