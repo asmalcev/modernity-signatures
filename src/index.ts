@@ -2,9 +2,10 @@ import babel from '@babel/parser';
 import fs from 'node:fs';
 
 import { scan } from './scan';
-import { getBrowserSupport } from './getBrowserSupport';
+// import { getBrowserSupport } from './getBrowserSupport';
 
 import { createGetTypeScriptType } from './ts-experiments/manual';
+import { createTsSourcesFromFile } from './ts-experiments/createTsSourcesFromFile';
 
 const sourceCodeFileName = 'sandbox/number_toFixed.ts';
 
@@ -19,11 +20,14 @@ const parsed = babel.parse(data, {
 
 // console.log(JSON.stringify(parsed))
 
-const getTypeScriptType = createGetTypeScriptType(sourceCodeFileName);
+const { tsSourceFile, typeChecker } =
+    createTsSourcesFromFile(sourceCodeFileName);
+
+const getTypeScriptType = createGetTypeScriptType(tsSourceFile, typeChecker);
 
 const report = scan(parsed.program.body, getTypeScriptType);
 
-// console.log(report);
+console.log(report);
 
 // const browserSupport = {};
 

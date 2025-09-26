@@ -1,5 +1,7 @@
 import { parse } from '@babel/parser';
 import { scan } from '../../src/scan';
+import { createTsSourcesFromCode } from '../../src/ts-experiments/createTsSourcesFromCode';
+import { createGetTypeScriptType } from '../../src/ts-experiments/manual';
 import { getBrowserSupport } from '../../src/getBrowserSupport';
 import {
     clearCodeHighlights,
@@ -156,8 +158,14 @@ const init = () => {
 
         console.log('program', parsed);
 
+        const { tsSourceFile, typeChecker } = createTsSourcesFromCode(code);
+        const getTypeScriptType = createGetTypeScriptType(
+            tsSourceFile,
+            typeChecker
+        );
+
         // @ts-ignore
-        const report = scan(parsed.program.body);
+        const report = scan(parsed.program.body, getTypeScriptType);
 
         output.innerHTML = '';
 
