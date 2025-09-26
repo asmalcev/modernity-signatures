@@ -28,7 +28,7 @@
         "@mdn/browser-compat-data": "^5.5.22",
         "esbuild": "^0.20.1",
         "rollup": "^4.12.1",
-        "typescript": "^5.8.3"
+        "typescript": "5.9.2"
     },
     "devDependencies": {
         "@babel/types": "^7.25.2",

@@ -1,20 +1,9 @@
 import ts from 'typescript';
 
-export const createGetTypeScriptType = (sourceCodeFileName: string) => {
-    const program = ts.createProgram([sourceCodeFileName], {
-        allowJs: true,
-        declaration: true,
-        emitDeclarationOnly: true,
-    });
-
-    const typeChecker = program.getTypeChecker();
-
-    const tsSourceFile = program.getSourceFile(sourceCodeFileName);
-
-    if (!tsSourceFile) {
-        throw new Error('No tsSourceFile found');
-    }
-
+export const createGetTypeScriptType = (
+    tsSourceFile: ts.SourceFile,
+    typeChecker: ts.TypeChecker
+) => {
     const findMatchingTSNode = (
         _tsNode: ts.Node,
         babelNode: any
@@ -46,7 +35,8 @@ export const createGetTypeScriptType = (sourceCodeFileName: string) => {
         ) {
             return 'bigint';
         } else if (flags & ts.TypeFlags.Object) {
-            return nodeType.symbol.name;
+            // FIXME does not work for a.push() :(
+            return nodeType.symbol?.name;
         } else if (
             flags & ts.TypeFlags.Number ||
             flags & ts.TypeFlags.NumberLiteral
